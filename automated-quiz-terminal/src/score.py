@@ -3,14 +3,24 @@ import json
 from datetime import datetime
 from src.utils import GREEN, YELLOW, CYAN, RESET, BRIGHT, print_header, print_divider
 
-def get_highscores_path():
-    """Gets the absolute path to highscores.json."""
+def get_highscores_path() -> str:
+    """
+    Gets the absolute path to highscores.json.
+    
+    Returns:
+        str: Absolute system path to highscores file.
+    """
     current_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(current_dir)
     return os.path.join(project_root, "data", "highscores.json")
 
-def load_highscores():
-    """Loads highscores from highscores.json, returning a dictionary structure."""
+def load_highscores() -> dict:
+    """
+    Loads highscores from highscores.json, returning a dictionary structure.
+    
+    Returns:
+        dict: Highscore listings grouped by category keys.
+    """
     path = get_highscores_path()
     if not os.path.exists(path):
         return {"science": [], "math": [], "history": [], "computer_science": []}
@@ -20,12 +30,21 @@ def load_highscores():
     except (json.JSONDecodeError, ValueError):
         return {"science": [], "math": [], "history": [], "computer_science": []}
 
-def calculate_score(correct, time_remaining, total_time, streak):
+def calculate_score(correct: bool, time_remaining: float, total_time: float, streak: int) -> int:
     """
     Calculates the score for a single question.
     - Base points for correct answer: 100
     - Speed bonus: proportional to remaining time (up to 50 points)
     - Streak multiplier: +10% per consecutive correct answer (e.g., streak of 2 gives 1.1x)
+    
+    Args:
+        correct (bool): True if answer was correct.
+        time_remaining (float): Remaining seconds on the question countdown timer.
+        total_time (float): Total timer limit allowed for the question.
+        streak (int): Current streak of correct answers.
+        
+    Returns:
+        int: Total points earned for the question.
     """
     if not correct:
         return 0
@@ -44,7 +63,7 @@ def calculate_score(correct, time_remaining, total_time, streak):
     total = int((base_points + speed_bonus) * streak_multiplier)
     return total
 
-def save_highscore(category, name, score, max_streak):
+def save_highscore(category: str, name: str, score: int, max_streak: int) -> None:
     """
     Saves a player's score to the leaderboard.
     Sorts highscores in descending order and keeps top 5.
