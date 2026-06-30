@@ -8,11 +8,15 @@ except ImportError:
     WINDOWS = False
     import select
 
-def get_choice_with_timeout(timeout_seconds):
+def get_choice_with_timeout(timeout_seconds: int) -> str:
     """
     Waits for a single key press (A, B, C, or D) with a real-time countdown.
-    Returns the selected choice in uppercase, or None if timed out.
-    Handles Ctrl+C (KeyboardInterrupt) cleanly.
+    
+    Args:
+        timeout_seconds (int): Maximum time in seconds allowed for answering.
+        
+    Returns:
+        str: Selected option ('A', 'B', 'C', 'D') in uppercase, or None if timed out.
     """
     if timeout_seconds is None or timeout_seconds <= 0:
         # No timer, wait indefinitely for a single key press
