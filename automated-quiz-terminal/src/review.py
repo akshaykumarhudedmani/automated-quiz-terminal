@@ -3,14 +3,24 @@ import json
 from src.utils import GREEN, RED, YELLOW, CYAN, RESET, BRIGHT, print_header, print_divider, safe_input
 from src.timer import get_choice_with_timeout
 
-def get_incorrect_answers_path():
-    """Gets the absolute path to incorrect_answers.json."""
+def get_incorrect_answers_path() -> str:
+    """
+    Gets the absolute path to incorrect_answers.json.
+    
+    Returns:
+        str: Absolute system path to incorrect answers file.
+    """
     current_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(current_dir)
     return os.path.join(project_root, "data", "incorrect_answers.json")
 
-def load_incorrect_answers():
-    """Loads incorrect answers from incorrect_answers.json."""
+def load_incorrect_answers() -> list:
+    """
+    Loads incorrect answers from incorrect_answers.json.
+    
+    Returns:
+        list: A list of logged incorrect question dictionaries.
+    """
     path = get_incorrect_answers_path()
     if not os.path.exists(path):
         return []
@@ -20,17 +30,26 @@ def load_incorrect_answers():
     except (json.JSONDecodeError, ValueError):
         return []
 
-def save_incorrect_answers_list(answers_list):
-    """Saves the entire list of incorrect answers to incorrect_answers.json."""
+def save_incorrect_answers_list(answers_list: list) -> None:
+    """
+    Saves the entire list of incorrect answers to incorrect_answers.json.
+    
+    Args:
+        answers_list (list): The list of incorrect question dictionaries to persist.
+    """
     path = get_incorrect_answers_path()
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(answers_list, f, indent=2)
 
-def log_incorrect_answer(category, question_obj):
+def log_incorrect_answer(category: str, question_obj: dict) -> None:
     """
     Saves a specific incorrect question.
     Avoids duplicate entries by checking category and question text.
+    
+    Args:
+        category (str): The subject category of the question.
+        question_obj (dict): The question dictionary that was answered incorrectly.
     """
     incorrect_list = load_incorrect_answers()
     
