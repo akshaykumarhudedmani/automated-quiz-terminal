@@ -91,7 +91,8 @@ def run_quiz(category: str, questions: list, time_limit: int) -> None:
     print_header("QUIZ OVER - SUMMARY", GREEN)
     print(f"Player: {BRIGHT}{name}{RESET}")
     print(f"Final Score: {BRIGHT}{score}{RESET}")
-    print(f"Accuracy: {BRIGHT}{correct_count}/{total_questions}{RESET} ({int((correct_count/total_questions)*100)}%)")
+    accuracy_percent = int((correct_count / total_questions) * 100) if total_questions > 0 else 0
+    print(f"Accuracy: {BRIGHT}{correct_count}/{total_questions}{RESET} ({accuracy_percent}%)")
     print(f"Max Streak: {BRIGHT}{max_streak}{RESET}")
     
     # Save highscore
