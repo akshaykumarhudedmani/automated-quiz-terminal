@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "question": "Solve for x: 2x + 5 = 15",
+    "options": [
+      "A) x = 5",
+      "B) x = 10",
+      "C) x = 7",
+      "D) x = 15"
+    ],
+    "answer": "A",
+    "explanation": "Subtract 5 from both sides: 2x = 10, then divide by 2: x = 5."
+  },
+  {
+    "id": 2,
+    "question": "What is the square root of 144?",
+    "options": [
+      "A) 11",
+      "B) 12",
+      "C) 14",
+      "D) 16"
+    ],
+    "answer": "B",
+    "explanation": "12 * 12 = 144, so the square root of 144 is 12."
+  },
+  {
+    "id": 3,
+    "question": "What type of triangle has two sides of equal length?",
+    "options": [
+      "A) Equilateral",
+      "B) Scalene",
+      "C) Isosceles",
+      "D) Right-angled"
+    ],
+    "answer": "C",
+    "explanation": "An isosceles triangle is a triangle that has two sides of equal length."
+  },
+  {
+    "id": 4,
+    "question": "What is the value of 5! (5 factorial)?",
+    "options": [
+      "A) 60",
+      "B) 100",
+      "C) 120",
+      "D) 150"
+    ],
+    "answer": "C",
+    "explanation": "5! = 5 * 4 * 3 * 2 * 1 = 120."
+  },
+  {
+    "id": 5,
+    "question": "What is the derivative of f(x) = x^2 with respect to x?",
+    "options": [
+      "A) x",
+      "B) 2",
+      "C) 2x",
+      "D) x^3 / 3"
+    ],
+    "answer": "C",
+    "explanation": "Using the power rule, the derivative of x^n is n * x^(n-1). For x^2, it is 2x."
+  }
+]
