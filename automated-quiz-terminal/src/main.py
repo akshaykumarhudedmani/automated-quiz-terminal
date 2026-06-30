@@ -18,8 +18,13 @@ from src.flashcards import run_flashcards
 from src.review import run_review_mode
 from src.score import display_leaderboard
 
-def load_logo():
-    """Reads and returns the ASCII logo banner."""
+def load_logo() -> str:
+    """
+    Reads and returns the ASCII logo banner.
+    
+    Returns:
+        str: The ASCII art text loaded from assets, or fallback text.
+    """
     logo_path = os.path.join(project_root, "assets", "logo.txt")
     if os.path.exists(logo_path):
         try:
@@ -29,10 +34,16 @@ def load_logo():
             pass
     return "=== AUTOMATED QUIZ TERMINAL ==="
 
-def choose_category(prompt_title):
+def choose_category(prompt_title: str) -> str:
     """
     Presents the category selection menu.
     Returns the string name of the chosen category (matching filenames), or None if cancelled.
+    
+    Args:
+        prompt_title (str): Header text displayed above categories.
+        
+    Returns:
+        str: Chosen category string (e.g. 'science'), or None if cancelled.
     """
     categories = {
         "1": ("Science", "science"),
