@@ -5,16 +5,27 @@ class QuestionSchemaError(Exception):
     """Custom exception raised when question JSON does not match the required schema."""
     pass
 
-def get_questions_dir():
-    """Returns the absolute path to the questions directory."""
+def get_questions_dir() -> str:
+    """
+    Returns the absolute path to the questions directory.
+    
+    Returns:
+        str: Absolute system path to the questions folder.
+    """
     current_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(current_dir)
     return os.path.join(project_root, "questions")
 
-def load_questions(category):
+def load_questions(category: str) -> list:
     """
     Loads questions for a given category from its JSON file.
     Validates the structure of the JSON file against the expected schema.
+    
+    Args:
+        category (str): The filename category to load (e.g. 'science').
+        
+    Returns:
+        list: A list of validated question dictionaries.
     """
     questions_dir = get_questions_dir()
     file_path = os.path.join(questions_dir, f"{category}.json")
@@ -53,6 +64,11 @@ def load_questions(category):
                 
         if not isinstance(item["answer"], str) or len(item["answer"]) != 1:
             raise QuestionSchemaError(f"Question at index {idx}: 'answer' must be a single character string.")
+            
+        # Verify that the answer letter matches one of the option letter prefixes (e.g., 'A', 'B')
+        option_prefixes = [opt[0].upper() for opt in item["options"] if opt and opt[0].isalpha()]
+        if item["answer"].upper().strip() not in option_prefixes:
+            raise QuestionSchemaError(f"Question at index {idx}: answer '{item['answer']}' must match one of the option letters: {option_prefixes}.")
             
         if not isinstance(item["explanation"], str):
             raise QuestionSchemaError(f"Question at index {idx}: 'explanation' must be a string.")
