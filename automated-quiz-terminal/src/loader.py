@@ -5,16 +5,27 @@ class QuestionSchemaError(Exception):
     """Custom exception raised when question JSON does not match the required schema."""
     pass
 
-def get_questions_dir():
-    """Returns the absolute path to the questions directory."""
+def get_questions_dir() -> str:
+    """
+    Returns the absolute path to the questions directory.
+    
+    Returns:
+        str: Absolute system path to the questions folder.
+    """
     current_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(current_dir)
     return os.path.join(project_root, "questions")
 
-def load_questions(category):
+def load_questions(category: str) -> list:
     """
     Loads questions for a given category from its JSON file.
     Validates the structure of the JSON file against the expected schema.
+    
+    Args:
+        category (str): The filename category to load (e.g. 'science').
+        
+    Returns:
+        list: A list of validated question dictionaries.
     """
     questions_dir = get_questions_dir()
     file_path = os.path.join(questions_dir, f"{category}.json")
