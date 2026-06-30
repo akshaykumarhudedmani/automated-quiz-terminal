@@ -47,5 +47,28 @@ class TestQuestionLoader(unittest.TestCase):
             if os.path.exists(temp_file_path):
                 os.remove(temp_file_path)
 
+    def test_invalid_answer_option_mismatch(self):
+        """Test that a schema error is raised when the answer option does not match option prefixes."""
+        q_dir = get_questions_dir()
+        temp_file_path = os.path.join(q_dir, "temp_test_mismatch.json")
+        
+        bad_data = [{
+            "id": 1,
+            "question": "Sample Question",
+            "options": ["A) Option 1", "B) Option 2"],
+            "answer": "C",
+            "explanation": "No explanation"
+        }]
+        
+        with open(temp_file_path, 'w', encoding='utf-8') as f:
+            json.dump(bad_data, f)
+            
+        try:
+            with self.assertRaises(QuestionSchemaError):
+                load_questions("temp_test_mismatch")
+        finally:
+            if os.path.exists(temp_file_path):
+                os.remove(temp_file_path)
+
 if __name__ == "__main__":
     unittest.main()
