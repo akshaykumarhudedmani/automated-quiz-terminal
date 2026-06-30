@@ -1,9 +1,13 @@
 from src.utils import GREEN, YELLOW, CYAN, RESET, BRIGHT, print_header, print_divider, safe_input
 
-def run_flashcards(category, questions):
+def run_flashcards(category: str, questions: list) -> None:
     """
     Runs the Flashcard study mode for a given category.
     Allows user to cycle through questions, reveal answers, and read explanations.
+    
+    Args:
+        category (str): The subject category name.
+        questions (list): The list of question dictionaries.
     """
     if not questions:
         print(f"\n{YELLOW}No questions found in this category.{RESET}")
@@ -12,6 +16,14 @@ def run_flashcards(category, questions):
         
     category_title = category.replace("_", " ").title()
     print_header(f"FLASHCARDS: {category_title}", YELLOW)
+    
+    shuffle_opt = safe_input("Would you like to shuffle the flashcards? (Y/N): ")
+    if shuffle_opt is not None and shuffle_opt.lower() == 'y':
+        import random
+        questions = list(questions)
+        random.shuffle(questions)
+        print(f"\n{GREEN}Flashcards shuffled successfully!{RESET}\n")
+        
     print("Study mode: review questions, press Enter to reveal the correct answer and explanation.\n")
     
     total_cards = len(questions)
