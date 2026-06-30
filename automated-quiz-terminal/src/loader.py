@@ -65,6 +65,11 @@ def load_questions(category: str) -> list:
         if not isinstance(item["answer"], str) or len(item["answer"]) != 1:
             raise QuestionSchemaError(f"Question at index {idx}: 'answer' must be a single character string.")
             
+        # Verify that the answer letter matches one of the option letter prefixes (e.g., 'A', 'B')
+        option_prefixes = [opt[0].upper() for opt in item["options"] if opt and opt[0].isalpha()]
+        if item["answer"].upper().strip() not in option_prefixes:
+            raise QuestionSchemaError(f"Question at index {idx}: answer '{item['answer']}' must match one of the option letters: {option_prefixes}.")
+            
         if not isinstance(item["explanation"], str):
             raise QuestionSchemaError(f"Question at index {idx}: 'explanation' must be a string.")
             
