@@ -92,10 +92,13 @@ def save_highscore(category: str, name: str, score: int, max_streak: int) -> Non
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(highscores, f, indent=2)
 
-def display_leaderboard(category=None):
+def display_leaderboard(category: str = None) -> None:
     """
     Displays the leaderboard table.
     If category is provided, displays only that category. Otherwise, displays all.
+    
+    Args:
+        category (str, optional): The category to filter by (e.g. 'math'). Defaults to None.
     """
     highscores = load_highscores()
     
