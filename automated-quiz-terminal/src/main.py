@@ -70,10 +70,12 @@ def choose_category(prompt_title: str) -> str:
         print(f"\n{RED}Invalid selection. Please choose 1-5.{RESET}")
         time_sleep_msg()
 
-def choose_timer():
+def choose_timer() -> int:
     """
     Presents the timer option selection.
-    Returns the number of seconds per question, or None for no limit, or -1 if cancelled.
+    
+    Returns:
+        int: The number of seconds chosen per question, or None for no limit, or -1 if cancelled.
     """
     timer_options = {
         "1": ("No time limit", None),
