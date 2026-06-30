@@ -1,6 +1,15 @@
 # Contributors
 
-This project is authored and maintained by:
+Team 4
 
-- **Antigravity** (AI Assistant Developer) - Core game engine, data loading, flashcard mode, scoring system, tests, and documentation.
-- **User** - Project requirements, directory structure specifications, feedback, and review.
+- Akshay Kumar
+- Thanmay M Gowda
+- B S Lichal Bopanna
+- Mohammed Huzain Raza
+- Basava Anand Akkimaradi
+- Jayanth P
+- Dhanush B N
+
+Project: Automated Quiz/Flashcard Terminal Application
+
+A terminal app that loads question banks from external files, runs timed multiple-choice quizzes, tracks high scores, and saves incorrect answers for later review.
