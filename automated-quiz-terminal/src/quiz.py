@@ -4,13 +4,14 @@ from src.timer import get_choice_with_timeout
 from src.score import calculate_score, save_highscore, display_leaderboard
 from src.review import log_incorrect_answer
 
-def run_quiz(category, questions, time_limit):
+def run_quiz(category: str, questions: list, time_limit: int) -> None:
     """
     Executes the interactive quiz session.
-    - Prompts the user for their name.
-    - Loops through questions, managing timer and scoring.
-    - Logs incorrect answers for review.
-    - Saves high score.
+    
+    Args:
+        category (str): The subject category (e.g. 'science').
+        questions (list): A list of question dictionaries.
+        time_limit (int): Timer limit per question in seconds.
     """
     category_title = category.replace("_", " ").title()
     print_header(f"STARTING QUIZ: {category_title}", CYAN)
@@ -90,7 +91,8 @@ def run_quiz(category, questions, time_limit):
     print_header("QUIZ OVER - SUMMARY", GREEN)
     print(f"Player: {BRIGHT}{name}{RESET}")
     print(f"Final Score: {BRIGHT}{score}{RESET}")
-    print(f"Accuracy: {BRIGHT}{correct_count}/{total_questions}{RESET} ({int((correct_count/total_questions)*100)}%)")
+    accuracy_percent = int((correct_count / total_questions) * 100) if total_questions > 0 else 0
+    print(f"Accuracy: {BRIGHT}{correct_count}/{total_questions}{RESET} ({accuracy_percent}%)")
     print(f"Max Streak: {BRIGHT}{max_streak}{RESET}")
     
     # Save highscore
