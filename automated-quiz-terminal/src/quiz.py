@@ -4,13 +4,14 @@ from src.timer import get_choice_with_timeout
 from src.score import calculate_score, save_highscore, display_leaderboard
 from src.review import log_incorrect_answer
 
-def run_quiz(category, questions, time_limit):
+def run_quiz(category: str, questions: list, time_limit: int) -> None:
     """
     Executes the interactive quiz session.
-    - Prompts the user for their name.
-    - Loops through questions, managing timer and scoring.
-    - Logs incorrect answers for review.
-    - Saves high score.
+    
+    Args:
+        category (str): The subject category (e.g. 'science').
+        questions (list): A list of question dictionaries.
+        time_limit (int): Timer limit per question in seconds.
     """
     category_title = category.replace("_", " ").title()
     print_header(f"STARTING QUIZ: {category_title}", CYAN)
