@@ -71,7 +71,7 @@ def log_incorrect_answer(category: str, question_obj: dict) -> None:
         incorrect_list.append(entry)
         save_incorrect_answers_list(incorrect_list)
 
-def run_review_mode():
+def run_review_mode() -> None:
     """
     Runs the Review Mode session.
     Presents incorrect questions. If answered correctly, removes them from the list.
@@ -85,7 +85,30 @@ def run_review_mode():
         return
         
     print_header(f"REVIEW MODE ({len(incorrect_list)} Questions)", RED)
-    print("Welcome to Review Mode. Answer correctly to remove questions from your review list.")
+    
+    print("Options:")
+    print("  1. Start Review Session")
+    print("  2. Clear Entire Review History")
+    print("  3. Cancel and Return")
+    print_divider("-", 40)
+    opt = safe_input("Choose option (1-3): ")
+    
+    if opt == "2":
+        confirm = safe_input("Are you sure you want to clear your review history? (Y/N): ")
+        if confirm and confirm.lower() == "y":
+            save_incorrect_answers_list([])
+            print(f"\n{GREEN}Review history cleared!{RESET}")
+            safe_input("\nPress Enter to return to main menu...")
+            return
+        else:
+            print(f"\n{YELLOW}Cancelled.{RESET}")
+            safe_input("\nPress Enter to return to main menu...")
+            return
+    elif opt != "1":
+        return
+        
+    print(f"\n{CYAN}{BRIGHT}Starting Review Session...{RESET}")
+    print("Answer correctly to remove questions from your review list.")
     print("No timers are active here. Take your time!\n")
     
     # Copy list to iterate safely
