@@ -64,5 +64,15 @@ class TestScoreCalculations(unittest.TestCase):
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(highscores, f, indent=2)
 
+    def test_calculate_score_negative_values(self):
+        """Test score calculation handles negative values safely."""
+        # Remaining time negative should treat as 0 speed bonus
+        score_neg_time = calculate_score(correct=True, time_remaining=-5, total_time=10, streak=1)
+        self.assertEqual(score_neg_time, 100)
+        
+        # Negative streak should not decrease multiplier below 1.0
+        score_neg_streak = calculate_score(correct=True, time_remaining=0, total_time=0, streak=-5)
+        self.assertEqual(score_neg_streak, 100)
+
 if __name__ == "__main__":
     unittest.main()
