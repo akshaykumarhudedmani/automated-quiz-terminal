@@ -1,9 +1,13 @@
 from src.utils import GREEN, YELLOW, CYAN, RESET, BRIGHT, print_header, print_divider, safe_input
 
-def run_flashcards(category, questions):
+def run_flashcards(category: str, questions: list) -> None:
     """
     Runs the Flashcard study mode for a given category.
     Allows user to cycle through questions, reveal answers, and read explanations.
+    
+    Args:
+        category (str): The subject category name.
+        questions (list): The list of question dictionaries.
     """
     if not questions:
         print(f"\n{YELLOW}No questions found in this category.{RESET}")
