@@ -95,5 +95,18 @@ class TestQuizFlow(unittest.TestCase):
         mock_log.assert_any_call("math", mock_questions[0])
         mock_log.assert_any_call("math", mock_questions[1])
 
+    @patch('src.quiz.safe_input')
+    @patch('src.quiz.save_highscore')
+    @patch('src.quiz.display_leaderboard')
+    def test_run_quiz_empty_questions(self, mock_leaderboard, mock_save, mock_input):
+        """Test quiz summary outputs correctly without crash when questions list is empty."""
+        mock_input.side_effect = ["EmptyPlayer", "", "n"]
+        
+        # Run quiz with empty list
+        run_quiz("science", [], time_limit=10)
+        
+        # Highscore should be saved with 0 score and 0 streak
+        mock_save.assert_called_once_with("science", "EmptyPlayer", 0, 0)
+
 if __name__ == "__main__":
     unittest.main()
